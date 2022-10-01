@@ -29,21 +29,18 @@ public class Game {
         }
     }
      Hero hero = new  Hero(new Position(10,10));
-    private void draw() throws IOException {
-        screen.clear();
-        hero.draw(screen);
-        screen.refresh();
-    }
     private void moveHero(Position position) {
         hero.setPosition(position);
     }
-    private void processKey(KeyStroke key) throws IOException {
-        if (key.getKeyType() == KeyType.ArrowUp) moveHero(hero.moveUp());
-        if (key.getKeyType() == KeyType.ArrowDown) moveHero(hero.moveDown());
-        if (key.getKeyType() == KeyType.ArrowLeft) moveHero(hero.moveLeft());
-        if (key.getKeyType() == KeyType.ArrowRight) moveHero(hero.moveRight());
-        if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') screen.close();
 
+    Arena arena =new Arena(100,100);
+    private void processKey(KeyStroke key) throws IOException {
+        arena.processKey(key);
+    }
+    private void draw() throws IOException {
+        screen.clear();
+        arena.draw(screen);
+        screen.refresh();
     }
     public void run() throws IOException {
         while (true) {
