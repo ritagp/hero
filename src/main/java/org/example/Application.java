@@ -1,7 +1,5 @@
 package org.example;
 
-import org.example.Game;
-
 import java.io.IOException;
 
 public class Application {
