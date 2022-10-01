@@ -28,17 +28,20 @@ public class Game {
             e.printStackTrace();
         }
     }
-     Hero hero = new  Hero(10, 10);
+     Hero hero = new  Hero(new Position(10,10));
     private void draw() throws IOException {
         screen.clear();
         hero.draw(screen);
         screen.refresh();
     }
+    private void moveHero(Position position) {
+        hero.setPosition(position);
+    }
     private void processKey(KeyStroke key) throws IOException {
-        if (key.getKeyType() == KeyType.ArrowUp) hero.moveUp();
-        if (key.getKeyType() == KeyType.ArrowDown) hero.moveDown();
-        if (key.getKeyType() == KeyType.ArrowLeft) hero.moveLeft();
-        if (key.getKeyType() == KeyType.ArrowRight) hero.moveRight();
+        if (key.getKeyType() == KeyType.ArrowUp) moveHero(hero.moveUp());
+        if (key.getKeyType() == KeyType.ArrowDown) moveHero(hero.moveDown());
+        if (key.getKeyType() == KeyType.ArrowLeft) moveHero(hero.moveLeft());
+        if (key.getKeyType() == KeyType.ArrowRight) moveHero(hero.moveRight());
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') screen.close();
 
     }
