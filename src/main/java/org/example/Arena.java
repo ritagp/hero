@@ -1,10 +1,16 @@
 package org.example;
 
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 
 import java.io.IOException;
+import java.nio.IntBuffer;
 
 public class Arena {
     private int height;
@@ -37,10 +43,13 @@ public class Arena {
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') screen.close();
 
     }
-    void draw(Screen screen) throws IOException {
-        screen.clear();
-        hero.draw(screen);
-        screen.refresh();
-    }
+
+
+    void draw(TextGraphics graphics) {
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        hero.draw(graphics);
+}
+
 
 }
