@@ -12,7 +12,7 @@ import java.io.IOException;
 
 
 public class Game {
-    private static Screen screen;
+    static Screen screen;
     public Game() {
         try {
             Terminal terminal = new DefaultTerminalFactory().createTerminal();
@@ -30,6 +30,7 @@ public class Game {
     }
      Hero hero = new  Hero(new Position(10,10));
     private void moveHero(Position position) {
+
         hero.setPosition(position);
     }
 
@@ -47,6 +48,8 @@ public class Game {
             draw();
             KeyStroke key = screen.readInput();
             processKey(key);
+            if (key.getKeyType()==KeyType.EOF)
+                break;
 
         }
 

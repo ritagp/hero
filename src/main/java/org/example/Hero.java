@@ -8,11 +8,18 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import java.awt.Color;
 
-public class Hero {
-    private Position position;
-    public Hero(Position position_) {
-        position=position_;
+public class Hero  extends Element{
+    private int x;
+    private int y;
+    private Position position= new Position(x,y);
+    public Hero(int x, int y) {
+        super(x,y);
     }
+
+    public Hero(Position position) {
+        super(position);
+    }
+
     public  Position getPosition(){
         return position;
     }
@@ -22,9 +29,9 @@ public class Hero {
     }
 
     public void draw(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#3633FF"));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "H");
     }
 
     public Position moveUp() {
