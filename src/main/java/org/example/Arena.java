@@ -23,6 +23,7 @@ public class Arena {
         width=width_;
         this.walls=createWalls();
         this.coins=createCoins();
+        this.monsters = createMonsters();
     }
     Hero hero=new Hero(new Position(10,10));
     public void moveHero(Position position) {
@@ -40,7 +41,6 @@ public class Arena {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -53,7 +53,32 @@ public class Arena {
         Screen screen = Game.screen;
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') screen.close();
         retrieveCoins();
+        verifyMonsterCollisions();
+        moveMonsters();
+        verifyMonsterCollisions();
+    }
+    private  List<Monster> monsters;
+    private List<Monster> createMonsters() {
+        Random random = new Random();
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (int i = 0; i < 5; i++)
+            monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        return monsters;
+    }
 
+    private void verifyMonsterCollisions() {
+        for (Monster monster : monsters)
+            if (hero.getPosition().equals(monster.getPosition())) {
+                System.out.println("You died!");
+                System.exit(0);
+            }
+    }
+    private void moveMonsters() {
+        for (Monster monster : monsters) {
+            Position monsterPosition = monster.move();
+            if (canHeroMove(monsterPosition))
+                monster.setPosition(monsterPosition);
+        }
     }
 
 
@@ -65,6 +90,8 @@ public class Arena {
             wall.draw(graphics);
         for (Coin coin:coins)
             coin.draw(graphics);
+        for (Monster monster : monsters)
+            monster.draw(graphics);
 
     }
 
