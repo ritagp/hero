@@ -1,5 +1,6 @@
 package org.example;
 
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -15,14 +16,14 @@ public class Game {
     static Screen screen;
     public Game() {
         try {
-            Terminal terminal = new DefaultTerminalFactory().createTerminal();
+            TerminalSize terminalsize= new TerminalSize(40,40);
+            Terminal terminal = new DefaultTerminalFactory().setInitialTerminalSize(terminalsize).createTerminal();
             screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null); // we don't need a cursor
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if necessary
             screen.clear();
-            screen.setCharacter(10, 10, TextCharacter.fromCharacter('X')
-                    [0]);
+            screen.setCharacter(10, 10, TextCharacter.fromCharacter('X')[0]);
             screen.refresh();
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,7 +35,7 @@ public class Game {
         hero.setPosition(position);
     }
 
-    Arena arena =new Arena(100,100);
+    Arena arena =new Arena(40,40);
     private void processKey(KeyStroke key) throws IOException {
         arena.processKey(key);
     }

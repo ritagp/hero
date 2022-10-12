@@ -95,7 +95,7 @@ public class Arena {
 
     }
 
-    private List<Wall> walls= new ArrayList<>();
+    private List<Wall> walls;
     private  List<Coin> coins;
     private List<Wall> createWalls() {
         List<Wall> walls = new ArrayList<>();
